@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cond3mned24</title>
+<meta name="description" content="Cond3mned24 — verified Nexus Mods author. About, history, and works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #050b16;
+    --panel: #0a1526;
+    --panel-2: #0f1d33;
+    --line: #1c2f4a;
+    --text: #eaf0fb;
+    --text-dim: #7c8ca8;
+    --blue: #4f8cff;
+    --blue-dim: #23406e;
+    --cyan: #5fd0d3;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  header{
+    position:sticky;top:0;z-index:10;
+    background:rgba(5,11,22,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:auto;display:block;}
+  .brand span{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;letter-spacing:0.02em;}
+  .navlinks{display:flex;gap:26px;font-family:'JetBrains Mono',monospace;font-size:13px;}
+  .navlinks a{text-decoration:none;color:var(--text-dim);transition:color 0.15s ease;}
+  .navlinks a:hover{color:var(--cyan);}
+  .navlinks .tag{color:var(--blue-dim);}
+
+  .hero{padding:88px 0 72px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan);
+    margin:0 0 14px;letter-spacing:0.02em;
+  }
+  h1{
+    font-family:'JetBrains Mono',monospace;
+    font-size:56px;line-height:1.05;font-weight:700;margin:0 0 8px;
+  }
+  h1 .accent{
+    background:linear-gradient(90deg,var(--blue),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  h2.headline{
+    font-size:38px;line-height:1.2;font-weight:600;margin:0 0 20px;max-width:16ch;
+    font-family:'Inter',sans-serif;
+  }
+  h2.headline b{color:var(--blue);font-weight:600;}
+  .lede{font-size:16px;color:var(--text-dim);line-height:1.7;max-width:52ch;margin:0 0 30px;}
+  .cta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;
+    padding:13px 26px;text-decoration:none;display:inline-block;
+    clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  }
+  .btn-primary{background:linear-gradient(90deg,var(--blue),var(--cyan));color:#04101f;}
+  .btn-ghost{border:1px solid var(--line);color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--blue-dim);color:var(--text);}
+
+  section{padding:64px 0;border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:36px;}
+  .section-head .idx{font-family:'JetBrains Mono',monospace;color:var(--blue-dim);font-size:14px;}
+  .section-head h3{font-family:'JetBrains Mono',monospace;font-size:22px;margin:0;font-weight:700;}
+
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start;}
+  .about-grid p{color:var(--text-dim);line-height:1.75;font-size:15px;margin:0 0 16px;}
+  .about-grid p b{color:var(--text);font-weight:600;}
+  .stat-card{
+    background:var(--panel);border:1px solid var(--line);padding:16px 18px;margin-bottom:10px;
+    display:flex;justify-content:space-between;align-items:center;
+    clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  }
+  .stat-card .num{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;color:var(--cyan);}
+  .stat-card .label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.05em;}
+
+  .timeline{position:relative;padding-left:28px;}
+  .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line);}
+  .tl-item{position:relative;padding-bottom:34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-28px;top:4px;width:11px;height:11px;
+    background:var(--blue);
+    clip-path:polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px);
+  }
+  .tl-year{font-family:'JetBrains Mono',monospace;color:var(--blue);font-size:13px;margin:0 0 6px;}
+  .tl-item h4{margin:0 0 6px;font-size:16px;font-weight:600;}
+  .tl-item p{margin:0;color:var(--text-dim);font-size:14px;line-height:1.6;max-width:60ch;}
+
+  .works-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .work-card{
+    background:var(--panel);border:1px solid var(--line);padding:24px;text-decoration:none;color:inherit;
+    display:flex;flex-direction:column;gap:14px;transition:border-color 0.15s ease;
+    clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  }
+  .work-card:hover{border-color:var(--blue-dim);}
+  .work-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .work-tag{
+    font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;
+    color:var(--cyan);border:1px solid var(--blue-dim);padding:3px 8px;
+    clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+  }
+  .work-arrow{font-family:'JetBrains Mono',monospace;color:var(--text-dim);font-size:14px;}
+  .work-card h4{margin:0;font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;}
+  .work-card p{margin:0;color:var(--text-dim);font-size:14px;line-height:1.6;}
+
+  .else-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .else-card{
+    background:var(--panel);border:1px dashed var(--line);padding:18px;text-align:left;
+  }
+  .else-card .k{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--blue-dim);text-transform:uppercase;margin:0 0 6px;}
+  .else-card p{margin:0;color:var(--text-dim);font-size:13px;line-height:1.5;}
+
+  footer{padding:36px 0 48px;border-top:1px solid var(--line);}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);flex-wrap:wrap;gap:10px;}
+
+  @media (max-width:760px){
+    .navlinks{display:none;}
+    h1{font-size:38px;}
+    h2.headline{font-size:27px;}
+    .about-grid{grid-template-columns:1fr;}
+    .works-grid{grid-template-columns:1fr;}
+    .else-grid{grid-template-columns:1fr;}
+    .hero{padding:56px 0 48px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <img src="logo.png" alt="Cᴏɴᴅ3ᴍɴᴇᴅ logo">
+        <span>Cᴏɴᴅ3ᴍɴᴇᴅ</span>
+      </div>
+      <div class="navlinks">
+        <a href="#about"><span class="tag">&lt;/</span>About<span class="tag">&gt;</span></a>
+        <a href="#history"><span class="tag">&lt;/</span>History<span class="tag">&gt;</span></a>
+        <a href="#works"><span class="tag">&lt;/</span>Works<span class="tag">&gt;</span></a>
+        <a href="#elsewhere"><span class="tag">&lt;/</span>Support<span class="tag">&gt;</span></a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="border-top:none;">
+  <div class="wrap">
+    <p class="eyebrow">Resident Evil modder — model work, rigging</p>
+    <h1>Cᴏɴᴅ3ᴍɴᴇᴅ</h1>
+    <p class="lede">Hey, I'm Jeff. Part of the RE modding community since 2021, making my own mods since 2022. This page is where you'll find my public releases, and the private/commissioned work I don't post anywhere else.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://www.patreon.com/c/cond3mned24" target="_blank" rel="noopener">Support on Patreon</a>
+      <a class="btn btn-ghost" href="https://www.nexusmods.com/profile/Cond3mned24" target="_blank" rel="noopener">Browse mods →</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="idx">01</span><h3>About me</h3></div>
+    <div class="about-grid">
+      <div>
+        <p><b>I'm Jeff</b>, I’ve been part of the Resident Evil modding community since 2021, starting out just exploring and downloading mods from forums. By April 2022, I got into actually creating my own, and I’ve been learning and improving ever since.
+
+</p>
+        <p>Over time, I’ve worked on mods for Resident Evil HD, Revelations, RE4 Remake, and Resident Evil 5, with RE5 being my main focus. Most of what I do involves model work, retexturing, and some rigging, especially through commissions I’ve been taking recently.</p>
+        <p></p>
+      </div>
+      <div>
+        <div class="stat-card"><span class="label">Downloads</span><span class="num">20,949</span></div>
+        <div class="stat-card"><span class="label">Endorsements</span><span class="num">145</span></div>
+        <div class="stat-card"><span class="label">Kudos</span><span class="num">25</span></div>
+        <div class="stat-card"><span class="label">Focus</span><span class="num">RE5</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="history">
+  <div class="wrap">
+    <div class="section-head"><span class="idx">02</span><h3>History</h3></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <p class="tl-year">2021</p>
+        <h4>Found the community</h4>
+        <p>Started out exploring and downloading mods from RE modding forums, before making anything of my own.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">Apr 2022</p>
+        <h4>Started creating</h4>
+        <p>Moved from downloading to building, the start of learning model work, retexturing, and rigging.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">2023 onwards, present</p>
+        <h4>Across four games</h4>
+        <p>Released mods for Resident Evil HD, Revelations, RE4 Remake, and Resident Evil 5, with RE5 as my main focus.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-year">Recently</p>
+        <h4>Taking commissions</h4>
+        <p>More private and commissioned work within the community, alongside public releases on Nexus Mods.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <div class="section-head"><span class="idx">03</span><h3>My works</h3></div>
+    <div class="works-grid">
+      <a class="work-card" href="https://www.patreon.com/c/cond3mned24" target="_blank" rel="noopener">
+        <div class="work-top"><span class="work-tag">Exclusive</span><span class="work-arrow">↗</span></div>
+        <h4>Patreon</h4>
+        <p>Private mods I don't release publicly, early previews and WIP content, and updates on ongoing projects.</p>
+      </a>
+      <a class="work-card" href="https://www.nexusmods.com/profile/Cond3mned24" target="_blank" rel="noopener">
+        <div class="work-top"><span class="work-tag">Public catalog</span><span class="work-arrow">↗</span></div>
+        <h4>Nexus Mods</h4>
+        <p>All my public releases — 20,949 downloads and counting, mostly Resident Evil 5.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="elsewhere">
+  <div class="wrap">
+    <div class="section-head"><span class="idx">04</span><h3>Why support</h3></div>
+    <div class="about-grid" style="grid-template-columns:1fr;">
+      <p>I'm not a full-time modder, I'm a college student balancing this on the side. But modding has become something I genuinely enjoy and take seriously. Support here helps me stay consistent, improve my work, and keep taking on projects within the community.</p>
+      <p>Thanks for checking out my page. If you've been following my work since the early days or just found it recently, I appreciate it either way.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <span>— Cᴏɴᴅ3ᴍɴᴇᴅ</span>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
