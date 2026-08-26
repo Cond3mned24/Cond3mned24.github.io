@@ -24,9 +24,15 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--bg);
+    background-color:var(--bg);
     color:var(--text);
     font-family:'Inter',sans-serif;
+    background-image:
+      radial-gradient(circle at 84% 4%, rgba(79,140,255,0.16), transparent 55%),
+      radial-gradient(circle at 4% 98%, rgba(95,208,211,0.08), transparent 50%),
+      repeating-linear-gradient(0deg, rgba(234,240,251,0.025) 0px, rgba(234,240,251,0.025) 1px, transparent 1px, transparent 42px),
+      repeating-linear-gradient(90deg, rgba(234,240,251,0.025) 0px, rgba(234,240,251,0.025) 1px, transparent 1px, transparent 42px);
+    background-attachment:fixed;
   }
   a{color:inherit;}
   .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
@@ -39,7 +45,7 @@
   }
   nav{
     display:flex;align-items:center;justify-content:space-between;
-    padding:14px 0;
+    padding:14px 0;position:relative;
   }
   .brand{display:flex;align-items:center;gap:10px;}
   .brand img{height:34px;width:auto;display:block;}
@@ -48,8 +54,34 @@
   .navlinks a{text-decoration:none;color:var(--text-dim);transition:color 0.15s ease;}
   .navlinks a:hover{color:var(--cyan);}
   .navlinks .tag{color:var(--blue-dim);}
+  .navtoggle{
+    display:none;background:none;border:1px solid var(--line);color:var(--text);
+    width:38px;height:34px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+  }
+  .navtoggle span{width:16px;height:2px;background:var(--text-dim);display:block;transition:transform 0.2s ease, opacity 0.2s ease;}
+  .navtoggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .navtoggle.open span:nth-child(2){opacity:0;}
+  .navtoggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
   .hero{padding:88px 0 72px;}
+  .hero-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:52px;}
+  .hero-text{flex:1;min-width:0;}
+  .profile-card{
+    flex:none;width:230px;background:var(--panel);border:1px solid var(--line);
+    padding:14px;display:flex;flex-direction:column;gap:12px;
+    clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  }
+  .avatar-frame{
+    background:linear-gradient(160deg,#e7ecf5,#c3cee3);
+    clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+    overflow:hidden;aspect-ratio:1/1;
+  }
+  .avatar-frame img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block;}
+  .card-id{display:flex;flex-direction:column;gap:3px;align-items:center;text-align:center;}
+  .card-name{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:var(--text);}
+  .card-role{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.05em;}
+  .profile-card img.badge{width:100%;height:auto;display:block;}
   .eyebrow{
     font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan);
     margin:0 0 14px;letter-spacing:0.02em;
@@ -77,6 +109,23 @@
   .btn-primary{background:linear-gradient(90deg,var(--blue),var(--cyan));color:#04101f;}
   .btn-ghost{border:1px solid var(--line);color:var(--text-dim);}
   .btn-ghost:hover{border-color:var(--blue-dim);color:var(--text);}
+  .btn{display:inline-flex;align-items:center;gap:9px;}
+  .icon-mark{flex:none;display:block;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .reveal-stagger.in-view .stat-card,
+  .reveal-stagger.in-view .work-card,
+  .reveal-stagger.in-view .tl-item{animation:revealItem 0.5s ease both;}
+  .reveal-stagger.in-view .stat-card:nth-child(2),
+  .reveal-stagger.in-view .work-card:nth-child(2){animation-delay:0.08s;}
+  .reveal-stagger.in-view .stat-card:nth-child(3){animation-delay:0.16s;}
+  .reveal-stagger.in-view .stat-card:nth-child(4){animation-delay:0.24s;}
+  @keyframes revealItem{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    .reveal-stagger.in-view .stat-card,.reveal-stagger.in-view .work-card,.reveal-stagger.in-view .tl-item{animation:none;}
+  }
 
   section{padding:64px 0;border-top:1px solid var(--line);}
   .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:36px;}
@@ -121,7 +170,7 @@
     clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
   }
   .work-arrow{font-family:'JetBrains Mono',monospace;color:var(--text-dim);font-size:14px;}
-  .work-card h4{margin:0;font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;}
+  .work-card h4{margin:0;font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;display:flex;align-items:center;gap:9px;}
   .work-card p{margin:0;color:var(--text-dim);font-size:14px;line-height:1.6;}
 
   .else-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -135,13 +184,23 @@
   .foot-row{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);flex-wrap:wrap;gap:10px;}
 
   @media (max-width:760px){
-    .navlinks{display:none;}
+    .navtoggle{display:flex;}
+    .navlinks{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;gap:0;background:var(--panel);border-bottom:1px solid var(--line);
+      padding:8px 24px;
+    }
+    .navlinks.open{display:flex;}
+    .navlinks a{padding:12px 0;border-bottom:1px solid var(--line);}
+    .navlinks a:last-child{border-bottom:none;}
     h1{font-size:38px;}
     h2.headline{font-size:27px;}
     .about-grid{grid-template-columns:1fr;}
     .works-grid{grid-template-columns:1fr;}
     .else-grid{grid-template-columns:1fr;}
     .hero{padding:56px 0 48px;}
+    .hero-inner{flex-direction:column;align-items:center;gap:32px;}
+    .profile-card{width:180px;}
   }
 </style>
 </head>
@@ -154,40 +213,60 @@
         <img src="logo.png" alt="Cᴏɴᴅ3ᴍɴᴇᴅ logo">
         <span>Cᴏɴᴅ3ᴍɴᴇᴅ</span>
       </div>
-      <div class="navlinks">
+      <div class="navlinks" id="navlinks">
         <a href="#about"><span class="tag">&lt;/</span>About<span class="tag">&gt;</span></a>
         <a href="#history"><span class="tag">&lt;/</span>History<span class="tag">&gt;</span></a>
         <a href="#works"><span class="tag">&lt;/</span>Works<span class="tag">&gt;</span></a>
         <a href="#elsewhere"><span class="tag">&lt;/</span>Support<span class="tag">&gt;</span></a>
       </div>
+      <button class="navtoggle" id="navtoggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
   </div>
 </header>
 
 <section class="hero" style="border-top:none;">
   <div class="wrap">
-    <p class="eyebrow">Resident Evil modder — model work, rigging</p>
-    <h1>Cᴏɴᴅ3ᴍɴᴇᴅ</h1>
-    <p class="lede">Hey, I'm Jeff. Part of the RE modding community since 2021, making my own mods since 2022. This page is where you'll find my public releases, and the private/commissioned work I don't post anywhere else.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://www.patreon.com/c/cond3mned24" target="_blank" rel="noopener">Support on Patreon</a>
-      <a class="btn btn-ghost" href="https://www.nexusmods.com/profile/Cond3mned24" target="_blank" rel="noopener">Browse mods →</a>
+    <div class="hero-inner">
+      <div class="profile-card">
+        <div class="avatar-frame">
+          <img src="avatar.png" alt="Cond3mned character art">
+        </div>
+        <div class="card-id">
+          <span class="card-name">Cᴏɴᴅ3ᴍɴᴇᴅ</span>
+          <span class="card-role">RE Modder · Model &amp; Rig</span>
+        </div>
+        <img class="badge" src="modder.gif" alt="Modder badge">
+      </div>
+      <div class="hero-text">
+        <p class="eyebrow">Resident Evil modder — model work, rigging</p>
+        <h1>Cᴏɴᴅ3ᴍɴᴇᴅ</h1>
+        <p class="lede">Hey, I'm Jeff. Your Resident Evil modder. This page is where you'll find my public releases, and the private/commissioned work I don't post anywhere else.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://www.patreon.com/c/cond3mned24" target="_blank" rel="noopener">
+            <svg class="icon-mark" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 5L7 1L12 5L7 13L2 5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            Support on Patreon
+          </a>
+          <a class="btn btn-ghost" href="https://www.nexusmods.com/profile/Cond3mned24" target="_blank" rel="noopener">
+            <svg class="icon-mark" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1L13 4.5V9.5L7 13L1 9.5V4.5L7 1Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M1 4.5L7 8L13 4.5M7 8V13" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            Browse mods →
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="about">
+<section id="about" class="reveal">
   <div class="wrap">
     <div class="section-head"><span class="idx">01</span><h3>About me</h3></div>
     <div class="about-grid">
       <div>
-        <p><b>I'm Jeff</b>, I’ve been part of the Resident Evil modding community since 2021, starting out just exploring and downloading mods from forums. By April 2022, I got into actually creating my own, and I’ve been learning and improving ever since.
-
-</p>
+        <p><b>I'm Jeff</b>, I’ve been part of the Resident Evil modding community since 2021, starting out just exploring and downloading mods from forums. By April 2022, I got into actually creating my own, and I’ve been learning and improving ever since.</p>
         <p>Over time, I’ve worked on mods for Resident Evil HD, Revelations, RE4 Remake, and Resident Evil 5, with RE5 being my main focus. Most of what I do involves model work, retexturing, and some rigging, especially through commissions I’ve been taking recently.</p>
-        <p></p>
       </div>
-      <div>
+      <div class="reveal-stagger">
         <div class="stat-card"><span class="label">Downloads</span><span class="num">20,949</span></div>
         <div class="stat-card"><span class="label">Endorsements</span><span class="num">145</span></div>
         <div class="stat-card"><span class="label">Kudos</span><span class="num">25</span></div>
@@ -197,10 +276,10 @@
   </div>
 </section>
 
-<section id="history">
+<section id="history" class="reveal">
   <div class="wrap">
     <div class="section-head"><span class="idx">02</span><h3>History</h3></div>
-    <div class="timeline">
+    <div class="timeline reveal-stagger">
       <div class="tl-item">
         <p class="tl-year">2021</p>
         <h4>Found the community</h4>
@@ -225,25 +304,25 @@
   </div>
 </section>
 
-<section id="works">
+<section id="works" class="reveal">
   <div class="wrap">
     <div class="section-head"><span class="idx">03</span><h3>My works</h3></div>
-    <div class="works-grid">
+    <div class="works-grid reveal-stagger">
       <a class="work-card" href="https://www.patreon.com/c/cond3mned24" target="_blank" rel="noopener">
         <div class="work-top"><span class="work-tag">Exclusive</span><span class="work-arrow">↗</span></div>
-        <h4>Patreon</h4>
+        <h4><svg class="icon-mark" width="15" height="15" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 5L7 1L12 5L7 13L2 5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Patreon</h4>
         <p>Private mods I don't release publicly, early previews and WIP content, and updates on ongoing projects.</p>
       </a>
       <a class="work-card" href="https://www.nexusmods.com/profile/Cond3mned24" target="_blank" rel="noopener">
         <div class="work-top"><span class="work-tag">Public catalog</span><span class="work-arrow">↗</span></div>
-        <h4>Nexus Mods</h4>
+        <h4><svg class="icon-mark" width="15" height="15" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1L13 4.5V9.5L7 13L1 9.5V4.5L7 1Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M1 4.5L7 8L13 4.5M7 8V13" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Nexus Mods</h4>
         <p>All my public releases about 20,949 downloads and counting, mostly Resident Evil 5.</p>
       </a>
     </div>
   </div>
 </section>
 
-<section id="elsewhere">
+<section id="elsewhere" class="reveal">
   <div class="wrap">
     <div class="section-head"><span class="idx">04</span><h3>Why support</h3></div>
     <div class="about-grid" style="grid-template-columns:1fr;">
@@ -261,6 +340,38 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const navToggle = document.getElementById('navtoggle');
+  const navLinks = document.getElementById('navlinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in-view'));
+  }
+</script>
 
 </body>
 </html>
